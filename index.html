@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<!-- 
+Semana 4 – 10a14/10/2022
+Introdução à Javascript
+Curso 200535 Javascript: Programando na linguagem web (Capítulos 5 ao 9)
+Desafio 2
+Mínimo necessário:
+
+Com base nos:
+•	Conteúdo visto no Curso citado acima e 
+•	No Desafio 1.
+Refatore o código do primeiro desafio, promovendo as seguintes melhorias:
+1.	Ao clicar no botão de inserção de cliente, a página faça uma requisição ajax, para uma das APIs listadas abaixo, inserindo o cliente no banco de dados (BD) disponibilizado;
+2.	Após feita a inserção no BD, a página deverá fazer outra requisição ajax, desta vez solicitando a lista de clientes;
+3.	De posse da listagem de clientes (item 2) a tabela de clientes exibida na página deverá ser atualizada;
+
+Bônus opcional:
+1.	Quando der dois cliques num cliente da tabela, ao invés de apagar o cliente na tabela, deverá ser feita requisição ajax apagando o cliente do BD;
+2.	Após feita a deleção no BD, a página deverá fazer outra requisição ajax, desta vez solicitando a lista de clientes;
+3.	De posse da listagem de clientes (item 2) a tabela de clientes exibida na página deverá ser atualizada;
+
+
+
+APIs POST (inserir novo registro):
+{"nome": “Flávia","data_nascimento": "1991-09-05","renda": 1000,"cpf": 12345678912,"matricula": "F3295813“}
+https://pxl0hosp0577.dispositivos.bb.com.br/talentosos/inserirCliente (pela intranet)
+http://www.ksamochvalov.com/academia/inserirCliente.php (pela internet)
+
+
+APIs DELETE (apagar um registro):
+{"cd_clientes": 1}
+https://pxl0hosp0577.dispositivos.bb.com.br/talentosos/deletarCliente (pela intranet)
+http://www.ksamochvalov.com/academia/removerCliente.php (pela internet)
+
+
+APIs PATCH (atualizar um registro):
+{"cd_clientes": 1,"nome": "Flavia de Andrade Nobrega","data_nascimento": "1991-09-05“}
+https://pxl0hosp0577.dispositivos.bb.com.br/talentosos/AtualizarCliente (pela intranet)
+http://www.ksamochvalov.com/academia/AtualizarCliente.php (pela internet)
+
+
+APIs GET (listar todos pela matricula):
+substitua Fxxxxxxx por sua matricula
+https://pxl0hosp0577.dispositivos.bb.com.br/talentosos/listarClientes/Fxxxxxxx (pela intranet)
+http://www.ksamochvalov.com/academia/ listarClientes.php?matricula=Fxxxxxxx (pela internet)
+
+ -->
+ 
+	<head>
+		<meta charset="UTF-8">
+		<title>DESAFIO 2</title>
+		<link rel="icon" href="img/bb_logo.png" type="image/x-icon">
+		<link rel="stylesheet" type="text/css" href="css/reset.css">
+		<link rel="stylesheet" type="text/css" href="css/index.css">
+		
+		</head>
+		<body>
+
+			<header>
+				<div class = "container">
+					<h2 class = "titulo">BANCO DO BRASIL S.A.</h2>
+					<link rel="icon" href="img/bb_logo.png" type="image/x-icon">
+				</div>
+			</header>
+
+		<section class="container">
+    		<h2 id="titulo-form">Registro de Clientes</h2>
+    <form id="form-adiciona">
+        <div class="grupo2">
+		            <label for="nome">Nome</label>
+		            <input id="nome" name="nome" type="text" placeholder="digite o nome do cliente" class="campo campo-medio">
+		        </div>
+        <div class="grupo">
+            		<label for="cpf">CPF:</label>
+            		<input id="cpf" name="CPF" type="text" placeholder="digite o cpf do cliente" class="campo campo-medio">
+        </div>
+        <div class="grupo">
+		            <label for="data_nascimento">Data de Nascimento</label>
+		            <input id="data_nascimento" name="data_nascimento" type="date" placeholder="" class="campo campo-medio">
+		        </div>
+        <div class="grupo">
+            		<label for="renda">Renda:</label>
+            		<input id="renda" type="number" min="0" max = "999999"placeholder="xxxx,xx" class="campo campo-medio">
+        </div>
+
+        <button id="adicionar-cliente" class="botao bto-principal" type= "button">Adicionar</button>
+    </form>
+</section>
+
+	<main>
+			<section class="container">
+				<h2><br>Tabela de Clientes</h2>
+				<table>
+					<thead>
+						<tr>
+							<th>Nome do Cliente</th>
+							<th>CPF</th>
+							<th>Data de Nascimento</th>
+							<th>Idade</th>
+							<th>Renda</th>
+							<th>Justificativa</th>
+						</tr>
+					</thead>
+					<tbody id="tabela-clientes">					
+					</tbody>
+					<tfoot>
+						<section>
+						<tr>
+							<th>Procura Clientes:</th>
+							<th><input type="text" name="filtro" id="filtrar-tabela" placeholder="Digite o nome do cliente"></input></th>
+							<th colspan="2"></th>
+							<th>Somatórios das Rendas:</th>
+							<th id="somatorioRendas">0,00</th>
+						</section>
+						</tr>
+					</tfoot>
+				</table>
+				<button id="buscar-clientes" class="botao bto-principal">Buscar Outros Clientes</button>
+			</section>
+			<section id="secao-erro" class="container"> 
+				<ul id="mensagens-erro"></ul>
+			</section>
+
+		</main>
+
+			<script src="js/f_renda.js" ></script>
+			<script src="js/form.js"></script>
+			<script src="js/f_data_nascimento.js"></script>
+			<script src="js/constantes.js"></script>
+			<script src="js/formatacoes.js"></script>
+			<script src="js/verifica-renda.js"></script>
+			<script src="js/valida-clientes.js"></script>
+			<script src="js/remover-clientes.js"></script>
+			<script src="js/filtrar-tabela.js"></script>
+			<script src="js/consumindoAPI.js"></script>
+	</body>
+</html>
